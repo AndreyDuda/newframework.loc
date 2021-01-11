@@ -1,0 +1,73 @@
+{% extends 'layout/default.html.twig' %}
+{% block title %}Create Task{% endblock %}
+{% block meta %}
+    <meta name="description" content="Blog Page description" />
+{% endblock %}
+
+{% block content %}
+    <h1>Task</h1>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create task</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    {% for error in errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit task</h3>
+                        </div>
+
+                        <form role="form" method="post" action="{{ path('task_editing') }}">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="id"
+                                            id="id" value="{{ task.id }}">
+                                    <input type="hidden" name="parent_id"
+                                           id="parent_id" value="{{ task.parentId }}">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title"
+                                           class="form-control" id="title"
+                                           value="{{ task.title }}">
+                                    <label for="content">content</label>
+                                    <input type="text" name="content"
+                                           class="form-control" id="content"
+                                           value="{{ task.content }}">
+                                    <label class="mr-sm-2" for="inlineFormCustomSelect"> Status </label>
+                                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status">
+                                        <option selected value="{{ task.status }}">{{ task.nameStatus }}</option>
+                                        {% for status in statuses %}
+                                            <option value="{{ loop.index }}">{{ status }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="date_finish">date</label><br>
+                                    <input type="date" id="date_finish" name="date_finish"
+                                           value="{{ task.dateFinish }}">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

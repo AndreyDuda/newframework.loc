@@ -1,0 +1,83 @@
+{% extends 'layout/default.html.twig' %}
+{% block title %}Create Task{% endblock %}
+{% block meta %}
+    <meta name="description" content="Blog Page description" xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+
+{% block content %}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>All task</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List tasks</h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="{{ path('task_create') }}" class="btn btn-primary mb-3">
+                            Add task
+                        </a>
+                        {% if tasks %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th style="width: 30px">#</th>
+                                    <th>parent</th>
+                                    <th>title</th>
+                                    <th>date finish</th>
+                                    <th>status</th>
+                                    <th>action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for task in tasks %}
+                                <tr>
+                                    <td>{{ task.id }}</td>
+                                    <td>{{ task.parentTitle }}</td>
+                                    <td>{{ task.title }}</td>
+                                    <td>{{ task.dateFinish }}</td>
+                                    <td>{{ task.nameStatus }}</td>
+                                    <td><i class="fas fa-lock-open"></i></td>
+                                    <td>
+                                        <a href="{{ path('task_show', {'id': task.id}) }}" class="btn btn-success btn-sm float-left mr-1">
+                                            <i class="fas fa-pencil-alt">Edit</i>
+                                        </a>
+                                        <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn btn-info btn-sm float-left mr-1">
+                                            <i class="fas fa-pencil-alt">Edit</i>
+                                        </a>
+
+                                        <form role="form" method="post" action="{{ path('task_delete') }}">
+                                            <input type="hidden" name="id" id="id" value="{{ task.id }}">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash-alt">Delete</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p>Empty</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

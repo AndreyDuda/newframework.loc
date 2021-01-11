@@ -1,0 +1,85 @@
+{% extends 'layout/default.html.twig' %}
+{% block title %}Create Task{% endblock %}
+{% block meta %}
+    <meta name="description" content="Blog Page description" />
+{% endblock %}
+
+{% block content %}
+    <h1>Task</h1>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create task</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    {% for error in errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Create task</h3>
+                        </div>
+
+                        <form role="form" method="post" action="{{ path('task_store') }}">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title"
+                                           class="form-control" id="title"
+                                           placeholder="Title"
+                                    {% if task is empty %}
+                                         {% else %}
+                                        value="{{ task.title }}
+                                    {% endif %}
+                                    ">
+                                    <label for="content">content</label>
+                                    <input type="text" name="content"
+                                           class="form-control" id="content"
+                                           placeholder="content"{% if task is empty %}
+                                            {% else %}
+                                           value="{{ task.content }}
+                                    {% endif %}
+                                    ">
+
+                                    {% if tasks %}
+                                    <label class="mr-sm-2" for="parent_id">level</label>
+                                    <select class="custom-select mr-sm-2" id="parent_id" name="parent_id">
+                                        <option selected value="{{ null }}">Parent</option>
+                                       {% for task in tasks %}
+                                        <option value="{{ task.id }}">child of {{ task.title }}</option>
+                                       {% endfor %}
+                                    </select>
+                                    {% endif %}
+
+                                    <label for="date_finish">date</label><br>
+                                    <input type="date" id="date_finish" name="date_finish" {% if task is empty %}
+                                            {% else %}
+                                           value="{{ task.date_finish}}
+                                    {% endif %}
+                                    ">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

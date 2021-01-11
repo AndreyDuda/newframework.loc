@@ -1,0 +1,23 @@
+{% extends 'layout/default.html.twig' %}
+
+
+
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('task_index') }}">Tasks</a></li>
+        <li class="breadcrumb-item active">{{ task.title }}</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ task.title }}</h1>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ task.dateFinish|date('Y-m-d') }}
+        </div>
+        <div class="card-body">{{ task.content|nl2br }}</div>
+    </div>
+
+{% endblock %}
