@@ -50,7 +50,6 @@ class MiddlewareResolver
                 return new DoublePassMiddlewareDecorator($handler, $this->responsePrototype);
             }
         }
-        var_dump($handler);
         throw new UnknownMiddlewareTypeException($handler);
     }
 

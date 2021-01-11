@@ -18,9 +18,9 @@
         </div><!-- /.container-fluid -->
     </section>
     {% for error in errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
     {% endfor %}
 
     <!-- Main content -->
@@ -40,9 +40,9 @@
                                     <input type="text" name="title"
                                            class="form-control" id="title"
                                            placeholder="Title"
-                                    {% if task is empty %}
-                                         {% else %}
-                                        value="{{ task.title }}
+                                            {% if task is empty %}
+                                            {% else %}
+                                           value="{{ task.title }}
                                     {% endif %}
                                     ">
                                     <label for="content">content</label>
@@ -55,13 +55,13 @@
                                     ">
 
                                     {% if tasks %}
-                                    <label class="mr-sm-2" for="parent_id">level</label>
-                                    <select class="custom-select mr-sm-2" id="parent_id" name="parent_id">
-                                        <option selected value="{{ null }}">Parent</option>
-                                       {% for task in tasks %}
-                                        <option value="{{ task.id }}">child of {{ task.title }}</option>
-                                       {% endfor %}
-                                    </select>
+                                        <label class="mr-sm-2" for="parent_id">level</label>
+                                        <select class="custom-select mr-sm-2" id="parent_id" name="parent_id">
+                                            <option selected value="{{ null }}">Parent</option>
+                                            {% for task in tasks %}
+                                                <option value="{{ task.id }}">child of {{ task.title }}</option>
+                                            {% endfor %}
+                                        </select>
                                     {% endif %}
 
                                     <label for="date_finish">date</label><br>

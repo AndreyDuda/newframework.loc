@@ -2,6 +2,7 @@
 
 namespace Infrastructure\Framework\Template\Twig;
 
+use Framework\Template\Twig\Extension\AuthExtension;
 use Framework\Template\Twig\Extension\RouteExtension;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
@@ -30,6 +31,7 @@ class TwigEnvironmentFactory
         }
 
         $environment->addExtension($container->get(RouteExtension::class));
+        $environment->addExtension($container->get(AuthExtension::class));
 
         foreach ($config['extensions'] as $extension) {
             $environment->addExtension($container->get($extension));

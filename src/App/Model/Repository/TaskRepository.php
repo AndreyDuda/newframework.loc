@@ -19,13 +19,13 @@ class TaskRepository
     public function create(TaskDTO $task)
     {
         $stmt = $this->pdo->prepare(
-            'INSERT INTO `tasks` (title, content, date_finish, status) VALUES (:title, :content, :date_finish, :status)'
+            'INSERT INTO `tasks` (title, content, date_finish, parent_id) VALUES (:title, :content, :date_finish, :parent_id)'
         );
 
-        $stmt->bindValue(':title', $task->title);
-        $stmt->bindValue(':content', $task->content);
-        $stmt->bindValue(':date_finish', $task->dateFinish);
-        $stmt->bindValue(':status', 0);
+        $stmt->bindParam(':title', $task->title);
+        $stmt->bindParam(':content', $task->content);
+        $stmt->bindParam(':date_finish', $task->dateFinish);
+        $stmt->bindParam(':parent_id', $task->parentId);
         $stmt->execute();
     }
 
@@ -53,6 +53,17 @@ class TaskRepository
             'UPDATE tasks 
             SET status=:status
             WHERE id=:id');
+        $stmt->bindParam(':id', $id,\PDO::PARAM_INT);
+        $stmt->bindParam(':status', $status,\PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function changeStatusChild($id, $status)
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE tasks 
+            SET status=:status
+            WHERE parent_id=:id');
         $stmt->bindParam(':id', $id,\PDO::PARAM_INT);
         $stmt->bindParam(':status', $status,\PDO::PARAM_INT);
         $stmt->execute();

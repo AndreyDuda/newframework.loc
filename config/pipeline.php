@@ -12,7 +12,7 @@ $app->pipe(Framework\Http\Middleware\BodyParamsMiddleware::class);
 $app->pipe(Framework\Http\Middleware\RouteMiddleware::class);
 $app->pipe(Middleware\EmptyResponseMiddleware::class);
 
-$app->pipe('cabinet', Middleware\BasicAuthMiddleware::class);
+$app->pipe('/task', Middleware\BasicAuthMiddleware::class);
 
 $app->pipe(Framework\Http\Middleware\DispatchMiddleware::class);
 

@@ -18,9 +18,9 @@
         </div><!-- /.container-fluid -->
     </section>
     {% for error in errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
     {% endfor %}
 
     <!-- Main content -->
@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <input type="hidden" name="id"
-                                            id="id" value="{{ task.id }}">
+                                           id="id" value="{{ task.id }}">
                                     <input type="hidden" name="parent_id"
                                            id="parent_id" value="{{ task.parentId }}">
                                     <label for="title">Title</label>
@@ -48,16 +48,16 @@
                                     <input type="text" name="content"
                                            class="form-control" id="content"
                                            value="{{ task.content }}">
+                                    <input type="hidden" value="{{ task.status }}" name="old_status">
                                     <label class="mr-sm-2" for="inlineFormCustomSelect"> Status </label>
                                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status">
                                         <option selected value="{{ task.status }}">{{ task.nameStatus }}</option>
-                                        {% for status in statuses %}
-                                            <option value="{{ loop.index }}">{{ status }}</option>
+                                        {% for key,status in statuses %}
+                                            <option value="{{ key }}">{{ status }}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="date_finish">date</label><br>
-                                    <input type="date" id="date_finish" name="date_finish"
-                                           value="{{ task.dateFinish }}">
+                                    <input id="date" type="date" name="date_finish" value="{{ task.dateFinish }}">
                                 </div>
                             </div>
                             <div class="card-footer">

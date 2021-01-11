@@ -45,7 +45,7 @@ class EditAction implements RequestHandlerInterface
             $task = $request->getParsedBody();
             $error = $this->checker->check($task);
             if (empty($error)) {
-                $newTask = new TaskEditDTO(
+                $updateTask = new TaskEditDTO(
                     $task['id'],
                     $task['title'],
                     $task['content'],
@@ -53,9 +53,9 @@ class EditAction implements RequestHandlerInterface
                     $task['status'],
                     $task['parent_id']
                 );
-                $this->taskRepository->update($newTask);
-                $this->statusChange->change($newTask->parentId, $newTask->status);
-                return new RedirectResponse('/task/show/' . $newTask->id);
+                $this->taskRepository->update($updateTask);
+                $this->statusChange->change($updateTask, $task['old_status']);
+                return new RedirectResponse('/task/show/' . $updateTask->id);
             }
         }
         $task = $this->taskQuery->fetch($request->getAttribute('id'));

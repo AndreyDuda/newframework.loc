@@ -2,6 +2,8 @@
 
 namespace App\Model\Repository;
 
+use App\Model\DTO\UserSingUpDTO;
+
 class UserRepository
 {
     private $pdo;
@@ -11,16 +13,14 @@ class UserRepository
         $this->pdo = $pdo;
     }
 
-    public function save($userData)
+    public function save(UserSingUpDTO $user)
     {
         $stmt = $this->pdo->prepare(
-            'INSERT INTO users (username, password, email) 
-                VALUES (:username, :password, :email)'
+            'INSERT INTO users (password, email) 
+                VALUES (:password, :email)'
         );
-
-        $stmt->bindValue(':username', $userData['username']);
-        $stmt->bindValue(':password', $userData['password']);
-        $stmt->bindValue(':email', $userData['email']);
+        $stmt->bindValue(':password', $user->passeordhash);
+        $stmt->bindValue(':email', $user->email);
         $stmt->execute();
     }
 }

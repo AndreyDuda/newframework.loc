@@ -15,15 +15,14 @@ class CheckStatusChangeQuery
     }
 
 
-    public function hasChildStatusNew(int $taskId)
+    public function hasChildStatusNew($parentId)
     {
         $status = StatusTask::STATUS_NEW;
         $stmt = $this->pdo->prepare(
-            "SELECT COUNT(id) FROM tasks p
-                    LEFT JOIN tasks c ON (c.parent_id=p.id)
-                    WHERE c.status=:status AND p.id=:id"
+            "SELECT COUNT(id) FROM tasks c
+                    WHERE c.status=:status AND parent_id=:parentId"
         );
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':parentId', $parentId);
         $stmt->bindParam(':status', $status);
         $stmt->execute();
         $res = $stmt->fetchColumn();

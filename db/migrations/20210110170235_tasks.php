@@ -21,10 +21,10 @@ final class Tasks extends AbstractMigration
     public function change(): void
     {
         $tasks = $this->table('tasks');
-        $tasks->addColumn('parent_id', 'integer', ['limit' => 11, 'null' => false])
+        $tasks->addColumn('parent_id', 'integer', ['limit' => 11, 'null' => true])
             ->addColumn('title', 'string', ['null' => false])
             ->addColumn('content', 'text', ['null' => false])
-            ->addColumn('date_finish', 'date', ['null' => false])
+            ->addColumn('date_finish', 'datetime', ['null' => false])
             ->addColumn('status', 'integer', ['limit' => MysqlAdapter::INT_TINY, 'default' => StatusTask::STATUS_NEW])
             ->addForeignKey('parent_id', 'tasks', 'id', [
                 'delete' => 'CASCADE',

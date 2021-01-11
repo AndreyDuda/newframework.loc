@@ -41,7 +41,7 @@ class CreateAction implements RequestHandlerInterface
             $task = $request->getParsedBody();
             $error = $this->checker->check($task);
             if (empty($error)) {
-                $task = new TaskDTO($task['title'], $task['content'], $task['date_finish']);
+                $task = new TaskDTO($task['title'], $task['content'], $task['date_finish'], $task['parent_id']);
                 $this->taskRepository->create($task);
                 return new RedirectResponse('/task');
             }

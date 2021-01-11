@@ -3,6 +3,7 @@
 namespace App\Model\DTO;
 
 use App\Model\UseCase\DateFormat;
+use App\Model\UseCase\StatusTask;
 
 class TaskDTO
 {
@@ -12,12 +13,15 @@ class TaskDTO
     public $content;
     /** @var string */
     public $dateFinish;
+    /** @var int */
+    public $parentId;
 
-    public function __construct(string $title, string $content, string $dateFinish)
+    public function __construct(string $title, string $content, string $dateFinish, $parentId)
     {
         $this->title = $title;
         $this->content = $content;
-        $this->dateFinish = (new \DateTimeImmutable($dateFinish))->format(DateFormat::FORMAT_DEFAULT);
+        $this->dateFinish = (new \DateTimeImmutable($dateFinish))->format(DateFormat::FORMAT_DATETIME);
+        $this->parentId = ($parentId) ? $parentId : null;
     }
 
 

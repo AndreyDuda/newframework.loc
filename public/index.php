@@ -8,7 +8,7 @@ use Aura\Router\RouterContainer;
  * @var \Psr\Container\ContainerInterface $container
  * @var \Framework\Http\Application $app
  */
-
+session_start();
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
